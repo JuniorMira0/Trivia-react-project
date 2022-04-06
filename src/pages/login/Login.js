@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import logo from '../../trivia.png';
+import { fetchApiToken, saveUser } from '../../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -31,8 +33,15 @@ class Login extends React.Component {
   }
 
   handleClick = () => {
-    const { history } = this.props;
-    history.push('/');
+    const { name, email } = this.state;
+    const { history, userName, fetchToken } = this.props;
+    fetchToken();
+    userName(name, email);
+    this.setState({
+      name: '',
+      email: '',
+    });
+    history.push('/game');
   }
 
   handleBtnSetting = () => {
@@ -52,19 +61,20 @@ class Login extends React.Component {
           </p>
           <div className="inputs-box">
             <input
-              type="email"
-              name="email"
-              value={ email }
-              onChange={ this.handleChange }
-              data-testid="input-gravatar-email"
-            />
-
-            <input
               type="text"
               name="name"
               value={ name }
               onChange={ this.handleChange }
               data-testid="input-player-name"
+              placeholder="digite seu nome"
+            />
+            <input
+              type="email"
+              name="email"
+              value={ email }
+              onChange={ this.handleChange }
+              data-testid="input-gravatar-email"
+              placeholder="digite seu email"
             />
             <button
               type="button"
@@ -89,10 +99,17 @@ class Login extends React.Component {
   }
 }
 
-Login.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-};
+const mapDispatchToProps = (dispatch) => ({
+  fetchToken: () => dispatch(fetchApiToken()),
+  userName: (name, email) => dispatch(saveUser(name, email)),
+});
 
-export default Login;
+Login.propTypes = {
+  fetchToken: PropTypes.func,
+  userName: PropTypes.func,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(Login);

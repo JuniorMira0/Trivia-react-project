@@ -29,6 +29,7 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+
   user: state.player,
 });
 
@@ -46,6 +47,7 @@ Header.defaultProps = {
     score: 0,
     gravatarEmail: '',
   },
+
 };
 
 export default connect(mapStateToProps)(Header);
