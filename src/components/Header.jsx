@@ -42,13 +42,4 @@ Header.propTypes = {
   }).isRequired,
 };
 
-// Header.defaultProps = {
-//   user: {
-//     name: '',
-//     score: 0,
-//     gravatarEmail: '',
-//   },
-
-// };
-
 export default connect(mapStateToProps)(Header);
