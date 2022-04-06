@@ -1,7 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../../components/Header';
+import { fetchApiAnswer } from '../../actions';
 
 class Game extends React.Component {
+  componentDidMount = () => {
+    const { token, fetchAnswer } = this.props;
+    fetchAnswer(token);
+  }
+
   render() {
     return (
       <div>
@@ -11,5 +19,17 @@ class Game extends React.Component {
     );
   }
 }
+const mapStateToProps = (state) => ({
+  token: state.token,
+});
 
-export default Game;
+const mapDispatchToProps = (dispatch) => ({
+  fetchAnswer: (token) => dispatch(fetchApiAnswer(token)),
+});
+
+Game.propTypes = {
+  fetchAnswer: PropTypes.func.isRequired,
+  token: PropTypes.string.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Game);
