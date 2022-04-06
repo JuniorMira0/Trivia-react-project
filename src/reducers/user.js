@@ -1,8 +1,18 @@
 import { SAVE_USER } from '../actions';
-
+/*
+A chave player deve conter a seguinte estrutura:
+{
+  name: nome-da-pessoa,
+  assertions: número-de-acertos,
+  score: pontuação,
+  gravatarEmail: email-da-pessoa,
+}
+*/
 const INITIAL_STATE = {
   name: '',
-  email: '',
+  assertions: 0,
+  score: 0,
+  gravatarEmail: '',
 };
 
 const user = (state = INITIAL_STATE, action) => {
@@ -10,10 +20,9 @@ const user = (state = INITIAL_STATE, action) => {
   case SAVE_USER:
     return {
       ...state,
-      name: action.payload.name,
-      email: action.payload.email,
+      name: action.name,
+      gravatarEmail: action.email,
     };
-
   default:
     return state;
   }
