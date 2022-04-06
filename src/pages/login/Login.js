@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import logo from '../trivia.png';
-import { fetchApiToken, saveUser } from '../actions';
+import logo from '../../trivia.png';
+import { fetchApiToken, saveUser } from '../../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -44,6 +44,11 @@ class Login extends React.Component {
     history.push('/game');
   }
 
+  handleBtnSetting = () => {
+    const { history } = this.props;
+    history.push('/settings');
+  }
+
   render() {
     const { name, email, btnDisable } = this.state;
 
@@ -79,6 +84,13 @@ class Login extends React.Component {
               disabled={ btnDisable }
             >
               Play
+            </button>
+            <button
+              onClick={ this.handleBtnSetting }
+              type="button"
+              data-testid="btn-settings"
+            >
+              Settings
             </button>
           </div>
         </header>
