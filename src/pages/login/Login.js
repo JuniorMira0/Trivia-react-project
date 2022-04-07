@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import logo from '../../trivia.png';
 import { fetchApiToken, saveUser } from '../../actions';
+import './Login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -18,19 +19,24 @@ class Login extends React.Component {
   validation = () => {
     const { name, email } = this.state;
     const fieldMinLenght = 2;
-    const regexEmail = email.match(/[\w.!#$%&'*+=?^_`{|}~-]+@[\w.-]+\.[A-Z]{2,}/gmi);
+    const regexEmail = email.match(
+      /[\w.!#$%&'*+=?^_`{|}~-]+@[\w.-]+\.[A-Z]{2,}/gim,
+    );
     const emailValidate = email.match(regexEmail);
     this.setState({
       btnDisable: !(emailValidate && name.length >= fieldMinLenght),
     });
-  }
+  };
 
   handleChange = ({ target }) => {
     const { name, value } = target;
-    this.setState({
-      [name]: value,
-    }, () => this.validation());
-  }
+    this.setState(
+      {
+        [name]: value,
+      },
+      () => this.validation(),
+    );
+  };
 
   handleClick = () => {
     const { name, email } = this.state;
@@ -42,12 +48,12 @@ class Login extends React.Component {
       email: '',
     });
     history.push('/game');
-  }
+  };
 
   handleBtnSetting = () => {
     const { history } = this.props;
     history.push('/settings');
-  }
+  };
 
   render() {
     const { name, email, btnDisable } = this.state;
@@ -56,9 +62,8 @@ class Login extends React.Component {
       <div className="App">
         <header className="App-header">
           <img src={ logo } className="App-logo" alt="logo" />
-          <p>
-            SUA VEZ
-          </p>
+          <br />
+          <p>SUA VEZ</p>
           <div className="inputs-box">
             <input
               type="text"
@@ -77,6 +82,7 @@ class Login extends React.Component {
               placeholder="digite seu email"
             />
             <button
+              className="button"
               type="button"
               data-testid="btn-play"
               name="btn-play"
