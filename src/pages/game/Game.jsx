@@ -5,7 +5,7 @@ import Header from '../../components/Header';
 import { fetchApiAnswer } from '../../actions';
 
 class Game extends React.Component {
-  componentDidMount = () => {
+  componentDidMount() {
     const { token, fetchAnswer } = this.props;
     fetchAnswer(token);
   }

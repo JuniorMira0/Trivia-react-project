@@ -26,7 +26,7 @@ const answerReducer = (state = INITIAL_STATE, action) => {
   case REQUEST_ANSWER:
     return {
       ...state,
-      results: [action.results],
+      results: action.results,
     };
   default:
     return state;
