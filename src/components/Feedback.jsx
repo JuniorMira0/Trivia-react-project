@@ -1,7 +1,3 @@
-// #### 13. Crie a mensagem de _feedback_ para ser exibida a pessoa usuária
-
-//   **PRIORIDADE 1** - A tela de feedback deve exibir uma mensagem relacionada ao desempenho da pessoa que jogou
-
 //   **Observações técnicas**
 
 //   * A mensagem deve ser "Could be better..." caso a pessoa acerte menos de 3 perguntas
