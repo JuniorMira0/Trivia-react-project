@@ -25,8 +25,7 @@ const answerReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case REQUEST_ANSWER:
     return {
-      ...state,
-      results: [action.results],
+      results: action.results,
     };
   default:
     return state;

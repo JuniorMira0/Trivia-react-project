@@ -8,19 +8,20 @@ export const saveUser = (name, email) => ({
   email,
 });
 
-export const requestAnswer = (token) => ({
+export const requestAnswer = (results) => ({
   type: REQUEST_ANSWER,
-  token,
+  results,
 });
 
 export const requestApi = (token) => ({
   type: REQUEST_TOKEN,
   token,
 });
-
+// let token = '';
 export const fetchApiToken = () => async (dispatch) => {
   const response = await fetch('https://opentdb.com/api_token.php?command=request');
   const data = await response.json();
+  // token = data.token;
   dispatch(requestApi(data.token));
 };
 
@@ -29,10 +30,10 @@ export const fetchApiAnswer = (token) => async (dispatch) => {
   const NUMBER_INVALID = 3;
   const response = await fetch(`https://opentdb.com/api.php?amount=${QTDA_ANSWER}&token=${token}`);
   const data = await response.json();
-  console.log(data);
+  console.log(data.results);
   if (data.response_code === NUMBER_INVALID) {
     dispatch(fetchApiToken());
-    dispatch(fetchApiAnswer());
+    // dispatch(fetchApiAnswer());
   } else {
     dispatch(requestAnswer(data.results));
   }
