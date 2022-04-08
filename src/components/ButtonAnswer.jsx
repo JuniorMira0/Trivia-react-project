@@ -20,6 +20,7 @@ class ButtonAnswer extends React.Component {
 
   shuflled = () => {
     // https://flaviocopes.com/how-to-shuffle-array-javascript/
+
     const { alternativas } = this.props;
     const VALOR_0_5 = 0.5;
     const shuflled = alternativas.sort(() => Math.random() - VALOR_0_5);
