@@ -56,7 +56,6 @@ class Login extends React.Component {
 
   render() {
     const { name, email, btnDisable } = this.state;
-
     return (
       <div className="App">
         <header className="App-header">
