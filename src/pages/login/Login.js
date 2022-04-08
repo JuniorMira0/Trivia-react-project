@@ -55,7 +55,6 @@ class Login extends React.Component {
     });
   }
 
-
   handleBtnSetting = () => {
     const { history } = this.props;
     history.push('/settings');
