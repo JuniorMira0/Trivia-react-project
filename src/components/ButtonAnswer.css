@@ -1,0 +1,23 @@
+.correct-answer {
+  border: 3px solid rgb(6, 240, 15);
+}
+
+.wrong-answer {
+  border: 3px solid red;
+}
+
+button {
+  background-color: #0d0d0e;
+  color: #fafcfc;
+  display: inline-block;
+  font-size: 16px;
+  letter-spacing: 4px;
+  margin-left: 40px;
+  margin-top: 40px;
+  overflow: hidden;
+  padding: 10px 200px;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.5s;
+}
