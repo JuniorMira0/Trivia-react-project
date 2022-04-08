@@ -1,31 +1,20 @@
-import { REQUEST_ANSWER } from '../actions';
-
-/*
-  "results":[
-     {
-        "category":"Entertainment: Video Games",
-        "type":"multiple",
-        "difficulty":"easy",
-        "question":"What is the first weapon you acquire in Half-Life?",
-        "correct_answer":"A crowbar",
-        "incorrect_answers":[
-           "A pistol",
-           "The H.E.V suit",
-           "Your fists"
-        ]
-     }
-  ]
-*/
+import { REQUEST_ANSWER, LOADING } from '../actions';
 
 const INITIAL_STATE = {
+  loading: true,
+  response_code: '',
   results: [],
 };
 
 const answerReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+  case LOADING:
+    return { ...state, loading: true };
   case REQUEST_ANSWER:
     return {
-      results: action.results,
+      response_code: action.results.response_code,
+      results: action.results.results,
+      loading: false,
     };
   default:
     return state;

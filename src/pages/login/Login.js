@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import logo from '../../trivia.png';
-import { fetchApiToken, saveUser } from '../../actions';
+import { fetchApiToken, saveUser, fetchApiAnswer } from '../../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -13,6 +13,12 @@ class Login extends React.Component {
       email: '',
       btnDisable: true,
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    const { results, token, history, fetchAnswer } = this.props;
+    if (prevProps.token !== token) fetchAnswer(token);
+    if (prevProps.results !== results) history.push('/game');
   }
 
   validation = () => {
@@ -34,14 +40,13 @@ class Login extends React.Component {
 
   handleClick = () => {
     const { name, email } = this.state;
-    const { history, userName, fetchToken } = this.props;
+    const { userName, fetchToken } = this.props;
     fetchToken();
     userName(name, email);
     this.setState({
       name: '',
       email: '',
     });
-    history.push('/game');
   }
 
   handleBtnSetting = () => {
@@ -99,12 +104,19 @@ class Login extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  token: state.token,
+  results: state.answer.results,
+});
+
 const mapDispatchToProps = (dispatch) => ({
+  fetchAnswer: (token) => dispatch(fetchApiAnswer(token)),
   fetchToken: () => dispatch(fetchApiToken()),
   userName: (name, email) => dispatch(saveUser(name, email)),
 });
 
 Login.propTypes = {
+  fetchAnswer: PropTypes.func.isRequired,
   fetchToken: PropTypes.func,
   userName: PropTypes.func,
   history: PropTypes.shape({
@@ -112,4 +124,4 @@ Login.propTypes = {
   }),
 }.isRequired;
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
