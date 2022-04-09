@@ -1,4 +1,4 @@
-import { SAVE_USER } from '../actions';
+import { SAVE_USER, SCORE_BOARD } from '../actions';
 /*
 A chave player deve conter a seguinte estrutura:
 {
@@ -22,6 +22,11 @@ const user = (state = INITIAL_STATE, action) => {
       ...state,
       name: action.name,
       gravatarEmail: action.email,
+    };
+  case SCORE_BOARD:
+    return {
+      ...state,
+      score: state.score + action.score,
     };
   default:
     return state;
