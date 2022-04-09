@@ -77,7 +77,7 @@ class ButtonAnswer extends React.Component {
           );
         })}
         <button
-          id="btnNext"
+          className="buttonNext"
           style={ nextClicked ? { visibility: 'visible' } : { visibility: 'hidden' } }
           data-testid="btn-next"
           type="button"
