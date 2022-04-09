@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ButtonAnswer from './ButtonAnswer';
-// import fetchApiAnswer from '../service/triviaAPI';
-// import { fetchApiAnswer, fetchApiToken } from '../actions';
 
 class Options extends React.Component {
   constructor() {
@@ -21,30 +19,33 @@ class Options extends React.Component {
   }
 
   handleClick = () => {
-    // const { results } = this.props;
-    // if (text === results[0].correct_answer) {
-    //   ponto += 1;
-    // }
+  }
+
+  handleClkBtnNext = () => {
     this.mudarIndexResults();
   }
+
+  shuflled = (alternativas) => {
+    const VALOR_0_5 = 0.5;
+    const shuflled = alternativas.sort(() => Math.random() - VALOR_0_5);
+    return shuflled;
+  };
 
   render() {
     const { answerIndex } = this.state;
     const { results } = this.props;
-    const alternativas = [
+    const shuflled = this.shuflled([
       ...results[answerIndex].incorrect_answers,
-      results[answerIndex].correct_answer];
-    console.log(alternativas);
+      results[answerIndex].correct_answer]);
     return (
       <div data-testid="answer-options">
         <p data-testid="question-category">{results[answerIndex].category}</p>
         <p data-testid="question-text">{results[answerIndex].question}</p>
         <ButtonAnswer
-          alternativas={ [
-            ...results[answerIndex].incorrect_answers,
-            results[answerIndex].correct_answer] }
+          alternativas={ shuflled }
           correct={ results[answerIndex].correct_answer }
           onClick={ this.handleClick }
+          handleClkBtnNext={ this.handleClkBtnNext }
         />
       </div>
     );
@@ -57,25 +58,13 @@ const mapStateToProps = (state) => ({
   loading: state.answer.loading,
 });
 
-// const mapDispatchToProps = (dispatch) => ({
-//   fetchAnswer: (token) => dispatch(fetchApiAnswer(token)),
-//   fetchToken: () => dispatch(fetchApiToken()),
-// });
-
 Options.propTypes = {
-  // loading: PropTypes.bool.isRequired,
-  // fetchToken: PropTypes.func.isRequired,
-  // fetchAnswer: PropTypes.func.isRequired,
-  // token: PropTypes.string.isRequired,
   results: PropTypes.arrayOf(PropTypes.shape({
     category: PropTypes.string,
     question: PropTypes.string,
     correct_answer: PropTypes.string,
     incorrect_answers: PropTypes.arrayOf(PropTypes.string),
   })).isRequired,
-  // incorrects: PropTypes.arrayOf(PropTypes.string).isRequired,
-  // correct: PropTypes.string.isRequired,
-  // mudarIndexResults: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps)(Options);

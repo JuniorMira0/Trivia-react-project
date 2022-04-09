@@ -5,50 +5,60 @@ class ButtonAnswer extends React.Component {
   constructor() {
     super();
     this.state = {
-      shuflled: [],
+      next: false,
     };
   }
 
-  componentDidMount() {
-    this.shuflled();
-  }
-
-  componentDidUpdate(prev) {
-    const { alternativas } = this.props;
-    if (prev.alternativas !== alternativas) this.shuflled();
-  }
-
-  shuflled = () => {
-    // https://flaviocopes.com/how-to-shuffle-array-javascript/
-
-    const { alternativas } = this.props;
-    const VALOR_0_5 = 0.5;
-    const shuflled = alternativas.sort(() => Math.random() - VALOR_0_5);
+  handleClick = () => {
+    const { onClick } = this.props;
     this.setState({
-      shuflled,
+      next: true,
     });
-  };
+    onClick();
+  }
+
+  handleClickNext = () => {
+    const { handleClkBtnNext } = this.props;
+    this.setState({
+      next: false,
+    });
+    handleClkBtnNext();
+  }
 
   render() {
-    const { shuflled } = this.state;
-    const { onClick, correct } = this.props;
+    const { next } = this.state;
+    const { correct, alternativas } = this.props;
     return (
-      shuflled.map((alt, index) => (
+      <>
+        {alternativas.map((alt, index) => (
+          <button
+            data-testid={ alt === correct ? (
+              'correct-answer') : `wrong-answer-${index}` }
+            type="button"
+            key={ index }
+            onClick={ this.handleClick }
+          >
+            { alt }
+          </button>
+        ))}
+        {/* { next && ( */}
         <button
-          data-testid={ alt === correct ? (
-            'correct-answer') : `wrong-answer-${index}` }
+          // disabled={ !next }
+          style={ next ? { visibility: 'visible' } : { visibility: 'hidden' } }
+          data-testid="btn-next"
           type="button"
-          key={ index }
-          onClick={ onClick }
+          onClick={ this.handleClickNext }
         >
-          { alt }
+          Next
         </button>
-      ))
+        {/* )} */}
+      </>
     );
   }
 }
 
 ButtonAnswer.propTypes = {
+  handleClkBtnNext: PropTypes.func.isRequired,
   correct: PropTypes.string.isRequired,
   alternativas: PropTypes.arrayOf(PropTypes.string).isRequired,
   onClick: PropTypes.func.isRequired,
