@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Timer from './Timer';
+import './ButtonAnswer.css';
 
 class ButtonAnswer extends React.Component {
   constructor() {
@@ -27,41 +29,52 @@ class ButtonAnswer extends React.Component {
 
   render() {
     const { next } = this.state;
-    const { correct, alternativas } = this.props;
+    const { correct, alternativas, answerIndex, handleClickFeedback } = this.props;
+    const ANSWER_INDEX_MAX = 4;
     return (
       <>
-        {alternativas.map((alt, index) => (
-          <button
-            data-testid={ alt === correct ? (
-              'correct-answer') : `wrong-answer-${index}` }
-            type="button"
-            key={ index }
-            onClick={ this.handleClick }
-          >
-            { alt }
-          </button>
-        ))}
-        {/* { next && ( */}
+        {!next && <Timer handleClick={ this.handleClick } />}
+        {/* <Timer handleClick={ this.handleClick } /> */}
+        {alternativas.map((alt, index) => {
+          const colorClass = (correct === alt ? 'correct-answer' : 'wrong-answer');
+          return (
+            <button
+              disabled={ next }
+              className={
+                next ? colorClass : undefined
+              }
+              data-testid={ alt === correct ? (
+                'correct-answer') : `wrong-answer-${index}` }
+              type="button"
+              key={ index }
+              onClick={ this.handleClick }
+            >
+              { alt }
+            </button>
+          );
+        })}
         <button
-          // disabled={ !next }
+          id="btnNext"
           style={ next ? { visibility: 'visible' } : { visibility: 'hidden' } }
           data-testid="btn-next"
           type="button"
-          onClick={ this.handleClickNext }
+          onClick={ answerIndex === ANSWER_INDEX_MAX ? (
+            handleClickFeedback) : this.handleClickNext }
         >
-          Next
+          {answerIndex === ANSWER_INDEX_MAX ? 'Feedback' : 'Next'}
         </button>
-        {/* )} */}
       </>
     );
   }
 }
 
 ButtonAnswer.propTypes = {
+  handleClickFeedback: PropTypes.func.isRequired,
+  answerIndex: PropTypes.number.isRequired,
   handleClkBtnNext: PropTypes.func.isRequired,
   correct: PropTypes.string.isRequired,
   alternativas: PropTypes.arrayOf(PropTypes.string).isRequired,
   onClick: PropTypes.func.isRequired,
-};
+}.isRequired;
 
 export default ButtonAnswer;

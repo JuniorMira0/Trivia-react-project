@@ -7,7 +7,7 @@ class Game extends React.Component {
     return (
       <div>
         <Header />
-        <Options />
+        <Options { ...this.props } />
       </div>
     );
   }

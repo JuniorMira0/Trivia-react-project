@@ -14,15 +14,21 @@ class Options extends React.Component {
   mudarIndexResults = () => {
     const INDEX_MAX = 4;
     this.setState((prev) => ({
-      answerIndex: prev.answerIndex < INDEX_MAX ? prev.answerIndex + 1 : INDEX_MAX,
+      answerIndex:
+        prev.answerIndex < INDEX_MAX ? prev.answerIndex + 1 : INDEX_MAX,
     }));
-  }
+  };
 
   handleClick = () => {
   }
 
   handleClkBtnNext = () => {
     this.mudarIndexResults();
+  }
+
+  handleClickFeedback = () => {
+    const { history } = this.props;
+    history.push('/feedback');
   }
 
   shuflled = (alternativas) => {
@@ -42,6 +48,8 @@ class Options extends React.Component {
         <p data-testid="question-category">{results[answerIndex].category}</p>
         <p data-testid="question-text">{results[answerIndex].question}</p>
         <ButtonAnswer
+          handleClickFeedback={ this.handleClickFeedback }
+          answerIndex={ answerIndex }
           alternativas={ shuflled }
           correct={ results[answerIndex].correct_answer }
           onClick={ this.handleClick }
@@ -59,6 +67,9 @@ const mapStateToProps = (state) => ({
 });
 
 Options.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
   results: PropTypes.arrayOf(PropTypes.shape({
     category: PropTypes.string,
     question: PropTypes.string,
