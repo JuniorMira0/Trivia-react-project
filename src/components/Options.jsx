@@ -12,15 +12,17 @@ class Options extends React.Component {
     super();
     this.state = {
       answerIndex: 0,
+      answered: false,
     };
   }
 
   mudarIndexResults = () => {
     const INDEX_MAX = 4;
     this.setState((prev) => ({
-      answerIndex: prev.answerIndex < INDEX_MAX ? prev.answerIndex + 1 : INDEX_MAX,
+      answerIndex:
+        prev.answerIndex < INDEX_MAX ? prev.answerIndex + 1 : INDEX_MAX,
     }));
-  }
+  };
 
   handleClick = ({ target }) => {
     // const { results } = this.props;
@@ -57,11 +59,12 @@ class Options extends React.Component {
   }
 
   render() {
-    const { answerIndex } = this.state;
+    const { answerIndex, answered } = this.state;
     const { results } = this.props;
     const alternativas = [
       ...results[answerIndex].incorrect_answers,
-      results[answerIndex].correct_answer];
+      results[answerIndex].correct_answer,
+    ];
     console.log(alternativas);
     return (
       <div data-testid="answer-options">
@@ -70,9 +73,11 @@ class Options extends React.Component {
         <ButtonAnswer
           alternativas={ [
             ...results[answerIndex].incorrect_answers,
-            results[answerIndex].correct_answer] }
+            results[answerIndex].correct_answer,
+          ] }
           correct={ results[answerIndex].correct_answer }
           onClick={ this.handleClick }
+          answered={ answered }
         />
       </div>
     );

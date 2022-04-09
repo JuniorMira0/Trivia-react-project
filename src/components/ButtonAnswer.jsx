@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './ButtonAnswer.css';
 
 class ButtonAnswer extends React.Component {
   constructor() {
@@ -35,6 +36,9 @@ class ButtonAnswer extends React.Component {
     return (
       shuflled.map((alt, index) => (
         <button
+          className={
+             answered && (correct === alt ? 'correct-answer' : 'wrong-answer')
+          }
           data-testid={ alt === correct ? (
             'correct-answer') : `wrong-answer-${index}` }
           type="button"
@@ -46,10 +50,12 @@ class ButtonAnswer extends React.Component {
         </button>
       ))
     );
+
   }
 }
 
 ButtonAnswer.propTypes = {
+  answered: PropTypes.bool.isRequired,
   correct: PropTypes.string.isRequired,
   alternativas: PropTypes.arrayOf(PropTypes.string).isRequired,
   onClick: PropTypes.func.isRequired,
