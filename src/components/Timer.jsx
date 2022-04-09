@@ -20,11 +20,23 @@ class Timer extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { handleClick } = this.props;
+    const { nextFalse, next } = this.props;
     if (prevState.timer === 1) {
       clearInterval(this.timeID);
-      handleClick();
+      nextFalse();
     }
+    if (next) {
+      const { timer } = this.state;
+      const { getTimer } = this.props;
+      getTimer(timer);
+    }
+  }
+
+  componentWillUnmount() {
+    const { timer } = this.state;
+    const { getTimer } = this.props;
+    getTimer(timer);
+    clearInterval(this.timeID);
   }
 
   render() {
@@ -36,7 +48,9 @@ class Timer extends React.Component {
 }
 
 Timer.propTypes = {
-  handleClick: PropTypes.func.isRequired,
+  next: PropTypes.bool.isRequired,
+  getTimer: PropTypes.func.isRequired,
+  nextFalse: PropTypes.func.isRequired,
 };
 
 export default Timer;
