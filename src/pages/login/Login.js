@@ -49,10 +49,10 @@ class Login extends React.Component {
     const { userName, fetchToken } = this.props;
     fetchToken();
     userName(name, email);
-    this.setState({
-      name: '',
-      email: '',
-    });
+    // this.setState({
+    //   name: '',
+    //   email: '',
+    // });
   }
 
   handleBtnSetting = () => {

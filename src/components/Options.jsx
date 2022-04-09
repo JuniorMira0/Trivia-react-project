@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ButtonAnswer from './ButtonAnswer';
+import { handleScore } from '../actions';
+
 // import fetchApiAnswer from '../service/triviaAPI';
 // import { fetchApiAnswer, fetchApiToken } from '../actions';
 
@@ -22,16 +24,39 @@ class Options extends React.Component {
     }));
   };
 
-  handleClick = () => {
+  handleClick = ({ target }) => {
     // const { results } = this.props;
     // if (text === results[0].correct_answer) {
     //   ponto += 1;
     // }
-    this.setState({
-      answered: true,
-    });
     // this.mudarIndexResults();
-  };
+    const { answerIndex } = this.state;
+    const { results, handleScoreBoard } = this.props;
+    const { name } = target;
+    const points = 10;
+    const hard = 3;
+    const medium = 2;
+    const easy = 1;
+    const timer = 10;
+    const correctAnswer = results[answerIndex].correct_answer;
+    if (name === correctAnswer) {
+      switch (results[answerIndex].difficulty) {
+      case 'hard':
+        handleScoreBoard(points + (timer * hard));
+        break;
+      case 'medium':
+        handleScoreBoard(points + (timer * medium));
+        break;
+      case 'easy':
+        handleScoreBoard(points + (timer * easy));
+        break;
+      default:
+        console.log('Error');
+        break;
+      }
+      // 10 + timer * dificuldade (3, 2, 1) results[answerIndex].difficulty
+    }
+  }
 
   render() {
     const { answerIndex, answered } = this.state;
@@ -65,27 +90,19 @@ const mapStateToProps = (state) => ({
   loading: state.answer.loading,
 });
 
-// const mapDispatchToProps = (dispatch) => ({
-//   fetchAnswer: (token) => dispatch(fetchApiAnswer(token)),
-//   fetchToken: () => dispatch(fetchApiToken()),
-// });
-
 Options.propTypes = {
-  // loading: PropTypes.bool.isRequired,
-  // fetchToken: PropTypes.func.isRequired,
-  // fetchAnswer: PropTypes.func.isRequired,
-  // token: PropTypes.string.isRequired,
-  results: PropTypes.arrayOf(
-    PropTypes.shape({
-      category: PropTypes.string,
-      question: PropTypes.string,
-      correct_answer: PropTypes.string,
-      incorrect_answers: PropTypes.arrayOf(PropTypes.string),
-    }),
-  ).isRequired,
-  // incorrects: PropTypes.arrayOf(PropTypes.string).isRequired,
-  // correct: PropTypes.string.isRequired,
-  // mudarIndexResults: PropTypes.func.isRequired,
+  handleScoreBoard: PropTypes.func.isRequired,
+  results: PropTypes.arrayOf(PropTypes.shape({
+    category: PropTypes.string,
+    question: PropTypes.string,
+    correct_answer: PropTypes.string,
+    difficulty: PropTypes.string,
+    incorrect_answers: PropTypes.arrayOf(PropTypes.string),
+  })).isRequired,
 };
 
-export default connect(mapStateToProps)(Options);
+const mapDispatchToProps = (dispatch) => ({
+  handleScoreBoard: (score) => dispatch(handleScore(score)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Options);

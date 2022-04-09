@@ -2,6 +2,7 @@ export const SAVE_USER = 'SAVE_USER';
 export const REQUEST_TOKEN = 'REQUEST_TOKEN';
 export const REQUEST_ANSWER = 'REQUEST_ANSWER';
 export const LOADING = 'LOADING';
+export const SCORE_BOARD = 'SCORE_BOARD';
 
 export const saveUser = (name, email) => ({
   type: SAVE_USER,
@@ -47,3 +48,8 @@ export const fetchApiAnswer = (token) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const handleScore = (score) => ({
+  type: SCORE_BOARD,
+  score,
+});
