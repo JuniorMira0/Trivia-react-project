@@ -96,6 +96,7 @@ Options.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+
   handleScoreBoard: PropTypes.func.isRequired,
   results: PropTypes.arrayOf(PropTypes.shape({
     category: PropTypes.string,
