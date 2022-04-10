@@ -1,65 +1,105 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Timer from './Timer';
 import './ButtonAnswer.css';
 
 class ButtonAnswer extends React.Component {
   constructor() {
     super();
     this.state = {
-      shuflled: [],
+      timer: 0,
+      nextClicked: false,
+      target: {},
     };
   }
 
-  componentDidMount() {
-    this.shuflled();
+  componentDidUpdate(prevProps, PrevState) {
+    const { timer, target } = this.state;
+    const { onClick } = this.props;
+    console.log(timer);
+    console.log(PrevState.timer);
+    if (PrevState.timer !== timer) onClick(target, timer);
   }
 
-  componentDidUpdate(prev) {
-    const { alternativas } = this.props;
-    if (prev.alternativas !== alternativas) this.shuflled();
+  getTimer = (timer) => {
+    this.setState(() => ({ timer }));
   }
 
-  shuflled = () => {
-    // https://flaviocopes.com/how-to-shuffle-array-javascript/
-
-    const { alternativas } = this.props;
-    const VALOR_0_5 = 0.5;
-    const shuflled = alternativas.sort(() => Math.random() - VALOR_0_5);
+  nextToTrue = () => {
     this.setState({
-      shuflled,
+      nextClicked: true,
     });
-  };
+  }
+
+  handleClick = ({ target }) => {
+    this.setState({
+      nextClicked: true,
+      target,
+    });
+  }
+
+  handleClickNext = () => {
+    const { handleClkBtnNext } = this.props;
+    this.setState({
+      nextClicked: false,
+    });
+    handleClkBtnNext();
+  }
 
   render() {
-    const { shuflled } = this.state;
-    const { onClick, correct } = this.props;
+    const { nextClicked } = this.state;
+    const { correct, alternativas, answerIndex, handleClickFeedback } = this.props;
+    const ANSWER_INDEX_MAX = 4;
     return (
-      shuflled.map((alt, index) => (
+      <>
+        {!nextClicked && <Timer
+          nextFalse={ this.nextToTrue }
+          getTimer={ this.getTimer }
+          nextClicked={ nextClicked }
+        />}
+        {alternativas.map((alt, index) => {
+          const colorClass = (correct === alt ? 'correct-answer' : 'wrong-answer');
+          return (
+            <button
+              disabled={ nextClicked }
+              className={
+                nextClicked ? colorClass : undefined
+              }
+              data-testid={ alt === correct ? (
+                'correct-answer') : `wrong-answer-${index}` }
+              type="button"
+              key={ index }
+              onClick={ this.handleClick }
+              name={ alt }
+            >
+              { alt }
+            </button>
+          );
+        })}
         <button
-          className={
-             answered && (correct === alt ? 'correct-answer' : 'wrong-answer')
-          }
-          data-testid={ alt === correct ? (
-            'correct-answer') : `wrong-answer-${index}` }
+          className="buttonNext"
+          style={ nextClicked ? { visibility: 'visible' } : { visibility: 'hidden' } }
+          data-testid="btn-next"
           type="button"
-          key={ index }
-          onClick={ onClick }
-          name={ alt }
+          onClick={ answerIndex === ANSWER_INDEX_MAX ? (
+            handleClickFeedback) : this.handleClickNext }
         >
-          { alt }
+          {answerIndex === ANSWER_INDEX_MAX ? 'Feedback' : 'Next'}
         </button>
-      ))
+      </>
     );
-
   }
 }
 
 ButtonAnswer.propTypes = {
-  answered: PropTypes.bool.isRequired,
+  getTimer: PropTypes.func.isRequired,
+  handleClickFeedback: PropTypes.func.isRequired,
+  answerIndex: PropTypes.number.isRequired,
+  handleClkBtnNext: PropTypes.func.isRequired,
   correct: PropTypes.string.isRequired,
   alternativas: PropTypes.arrayOf(PropTypes.string).isRequired,
   onClick: PropTypes.func.isRequired,
-};
+}.isRequired;
 
 export default ButtonAnswer;
 

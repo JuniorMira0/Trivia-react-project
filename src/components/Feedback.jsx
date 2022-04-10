@@ -18,11 +18,13 @@ class Feedback extends React.Component {
   // }
 
   render() {
-    const { score } = this.state;
-    const lessThan3 = 2;
+    // const { score } = this.state;
+    // const lessThan3 = 2;
     return (
-      score <= lessThan3 ? <span data-testid="feedback-text">Could be better...</span>
-        : <span data-testid="feedback-text">Well Done!</span>
+      // <p>aaaaa</p>
+    //   score <= lessThan3 ?
+      <span data-testid="feedback-text">Could be better...</span>
+    //     : <span data-testid="feedback-text">Well Done!</span>
     );
   }
 }

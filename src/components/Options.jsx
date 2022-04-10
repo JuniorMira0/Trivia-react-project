@@ -4,15 +4,11 @@ import PropTypes from 'prop-types';
 import ButtonAnswer from './ButtonAnswer';
 import { handleScore } from '../actions';
 
-// import fetchApiAnswer from '../service/triviaAPI';
-// import { fetchApiAnswer, fetchApiToken } from '../actions';
-
 class Options extends React.Component {
   constructor() {
     super();
     this.state = {
       answerIndex: 0,
-      answered: false,
     };
   }
 
@@ -24,12 +20,22 @@ class Options extends React.Component {
     }));
   };
 
-  handleClick = ({ target }) => {
-    // const { results } = this.props;
-    // if (text === results[0].correct_answer) {
-    //   ponto += 1;
-    // }
-    // this.mudarIndexResults();
+  handleClkBtnNext = () => {
+    this.mudarIndexResults();
+  }
+
+  handleClickFeedback = () => {
+    const { history } = this.props;
+    history.push('/feedback');
+  }
+
+  shuflled = (alternativas) => {
+    const VALOR_0_5 = 0.5;
+    const shuflled = alternativas.sort(() => Math.random() - VALOR_0_5);
+    return shuflled;
+  };
+
+  getScoreBoard = (target, timer) => {
     const { answerIndex } = this.state;
     const { results, handleScoreBoard } = this.props;
     const { name } = target;
@@ -37,7 +43,6 @@ class Options extends React.Component {
     const hard = 3;
     const medium = 2;
     const easy = 1;
-    const timer = 10;
     const correctAnswer = results[answerIndex].correct_answer;
     if (name === correctAnswer) {
       switch (results[answerIndex].difficulty) {
@@ -54,30 +59,27 @@ class Options extends React.Component {
         console.log('Error');
         break;
       }
-      // 10 + timer * dificuldade (3, 2, 1) results[answerIndex].difficulty
     }
   }
 
   render() {
-    const { answerIndex, answered } = this.state;
+    const { answerIndex } = this.state;
     const { results } = this.props;
-    const alternativas = [
+    const shuflled = this.shuflled([
       ...results[answerIndex].incorrect_answers,
-      results[answerIndex].correct_answer,
-    ];
-    console.log(alternativas);
+      results[answerIndex].correct_answer]);
     return (
       <div data-testid="answer-options">
         <p data-testid="question-category">{results[answerIndex].category}</p>
         <p data-testid="question-text">{results[answerIndex].question}</p>
         <ButtonAnswer
-          alternativas={ [
-            ...results[answerIndex].incorrect_answers,
-            results[answerIndex].correct_answer,
-          ] }
+          getTimer={ this.getTimer }
+          handleClickFeedback={ this.handleClickFeedback }
+          answerIndex={ answerIndex }
+          alternativas={ shuflled }
           correct={ results[answerIndex].correct_answer }
-          onClick={ this.handleClick }
-          answered={ answered }
+          onClick={ this.getScoreBoard }
+          handleClkBtnNext={ this.handleClkBtnNext }
         />
       </div>
     );
@@ -91,6 +93,10 @@ const mapStateToProps = (state) => ({
 });
 
 Options.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+
   handleScoreBoard: PropTypes.func.isRequired,
   results: PropTypes.arrayOf(PropTypes.shape({
     category: PropTypes.string,
