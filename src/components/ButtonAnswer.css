@@ -1,0 +1,57 @@
+.timer {
+  justify-content: center;
+}
+
+.buttonNext {
+  position: relative;
+  transition: none;
+}
+
+.correct-answer {
+  border: 3px solid rgb(6, 240, 15);
+}
+
+.correct-answer:after {
+  background-color: rgba(6, 240, 14, 0.404);
+}
+
+.wrong-answer {
+  border: 3px solid red;
+}
+
+.wrong-answer:after {
+  background-color: rgba(255, 0, 0, 0.493);
+}
+
+button {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid black;
+  color: black;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 200;
+  justify-items: center;
+  letter-spacing: 1px;
+  margin: 5px;
+  outline: 0;
+  padding: 13px 50px;
+  position: relative;
+}
+
+button:after {
+  background-color: #ffe54c;
+  content: '';
+  height: 100%;
+  left: 7px;
+  position: absolute;
+  top: 7px;
+  transition: 0.2s;
+  width: 100%;
+  z-index: -1;
+}
+
+button:hover:after {
+  left: 0;
+  top: 0;
+}
