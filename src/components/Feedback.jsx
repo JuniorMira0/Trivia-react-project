@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import md5 from 'crypto-js/md5';
 import { resetScore } from '../actions';
-import Header from './Header';
 import { addRanking } from '../services/localStorage';
 
 //   **Observações técnicas**
@@ -29,7 +28,7 @@ A chave ranking deve conter a seguinte estrutura:
 
 class Feedback extends React.Component {
   saveRanking = () => {
-    const { name, score, gravatarEmail } = this.props;
+    const { name, score, gravatarEmail, dispatch } = this.props;
     const avatar = md5(gravatarEmail).toString();
     const gravatar = `https://www.gravatar.com/avatar/${avatar}`;
     const user = {
@@ -59,7 +58,6 @@ class Feedback extends React.Component {
     const MIN_ASSERT = 3;
     return (
       <section>
-        <Header />
         <section>
           <p data-testid="feedback-text">
             { assertions < MIN_ASSERT ? 'Could be better...' : 'Well Done!'}
@@ -101,10 +99,10 @@ class Feedback extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  score: state.user.score,
-  assertions: state.user.assertions,
-  name: state.user.name,
-  gravatarEmail: state.user.gravatarEmail,
+  score: state.player.score,
+  assertions: state.player.assertions,
+  name: state.player.name,
+  gravatarEmail: state.player.gravatarEmail,
 });
 
 Feedback.propTypes = {
@@ -112,6 +110,7 @@ Feedback.propTypes = {
   assertions: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   gravatarEmail: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
