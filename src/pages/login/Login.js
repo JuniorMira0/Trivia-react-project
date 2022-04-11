@@ -49,10 +49,10 @@ class Login extends React.Component {
     const { userName, fetchToken } = this.props;
     fetchToken();
     userName(name, email);
-    this.setState({
-      name: '',
-      email: '',
-    });
+    // this.setState({
+    //   name: '',
+    //   email: '',
+    // });
   }
 
   handleBtnSetting = () => {
@@ -77,6 +77,7 @@ class Login extends React.Component {
               data-testid="input-player-name"
               placeholder="digite seu nome"
             />
+            <br />
             <input
               type="email"
               name="email"
@@ -85,6 +86,7 @@ class Login extends React.Component {
               data-testid="input-gravatar-email"
               placeholder="digite seu email"
             />
+            <br />
             <button
               className="button"
               type="button"
