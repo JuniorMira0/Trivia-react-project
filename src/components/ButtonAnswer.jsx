@@ -52,11 +52,13 @@ class ButtonAnswer extends React.Component {
     const ANSWER_INDEX_MAX = 4;
     return (
       <>
-        {!nextClicked && <Timer
-          nextFalse={ this.nextToTrue }
-          getTimer={ this.getTimer }
-          nextClicked={ nextClicked }
-        />}
+        <div className="timer">
+          {!nextClicked && <Timer
+            nextFalse={ this.nextToTrue }
+            getTimer={ this.getTimer }
+            nextClicked={ nextClicked }
+          />}
+        </div>
         {alternativas.map((alt, index) => {
           const colorClass = (correct === alt ? 'correct-answer' : 'wrong-answer');
           return (
@@ -76,16 +78,18 @@ class ButtonAnswer extends React.Component {
             </button>
           );
         })}
-        <button
-          className="buttonNext"
-          style={ nextClicked ? { visibility: 'visible' } : { visibility: 'hidden' } }
-          data-testid="btn-next"
-          type="button"
-          onClick={ answerIndex === ANSWER_INDEX_MAX ? (
-            handleClickFeedback) : this.handleClickNext }
-        >
-          {answerIndex === ANSWER_INDEX_MAX ? 'Feedback' : 'Next'}
-        </button>
+        <div className="visible-button">
+          <button
+            className="buttonNext"
+            style={ nextClicked ? { visibility: 'visible' } : { visibility: 'hidden' } }
+            data-testid="btn-next"
+            type="button"
+            onClick={ answerIndex === ANSWER_INDEX_MAX ? (
+              handleClickFeedback) : this.handleClickNext }
+          >
+            {answerIndex === ANSWER_INDEX_MAX ? 'Feedback' : 'Next'}
+          </button>
+        </div>
       </>
     );
   }

@@ -1,4 +1,9 @@
+.timer {
+  justify-content: center;
+}
+
 .buttonNext {
+  position: relative;
   transition: none;
 }
 
@@ -6,22 +11,47 @@
   border: 3px solid rgb(6, 240, 15);
 }
 
+.correct-answer:after {
+  background-color: rgba(6, 240, 14, 0.404);
+}
+
 .wrong-answer {
   border: 3px solid red;
 }
 
+.wrong-answer:after {
+  background-color: rgba(255, 0, 0, 0.493);
+}
+
 button {
-  background-color: #0d0d0e;
-  color: #fafcfc;
-  display: inline-block;
-  font-size: 16px;
-  letter-spacing: 4px;
-  margin-left: 40px;
-  margin-top: 40px;
-  overflow: hidden;
-  padding: 10px 200px;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid black;
+  color: black;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 200;
+  justify-items: center;
+  letter-spacing: 1px;
+  margin: 5px;
+  outline: 0;
+  padding: 13px 50px;
   position: relative;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: 0.5s;
+}
+
+button:after {
+  background-color: #ffe54c;
+  content: '';
+  height: 100%;
+  left: 7px;
+  position: absolute;
+  top: 7px;
+  transition: 0.2s;
+  width: 100%;
+  z-index: -1;
+}
+
+button:hover:after {
+  left: 0;
+  top: 0;
 }

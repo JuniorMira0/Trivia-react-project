@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ButtonAnswer from './ButtonAnswer';
 import { handleScore } from '../actions';
+import './Options.css';
 
 class Options extends React.Component {
   constructor() {
@@ -70,17 +71,37 @@ class Options extends React.Component {
       results[answerIndex].correct_answer]);
     return (
       <div data-testid="answer-options">
-        <p data-testid="question-category">{results[answerIndex].category}</p>
-        <p data-testid="question-text">{results[answerIndex].question}</p>
-        <ButtonAnswer
-          getTimer={ this.getTimer }
-          handleClickFeedback={ this.handleClickFeedback }
-          answerIndex={ answerIndex }
-          alternativas={ shuflled }
-          correct={ results[answerIndex].correct_answer }
-          onClick={ this.getScoreBoard }
-          handleClkBtnNext={ this.handleClkBtnNext }
-        />
+        <div className="container">
+          <section className="py-5">
+            <blockquote
+              className="blockquote blockquote-custom bg-white p-5 shadow rounded"
+            >
+              <small
+                data-testid="question-category"
+              >
+                {results[answerIndex].category}
+
+              </small>
+              <p
+                className="mb-0 mt-2 font-italic"
+                data-testid="question-text"
+              >
+                {results[answerIndex].question}
+              </p>
+            </blockquote>
+          </section>
+        </div>
+        <div className="container py-5">
+          <ButtonAnswer
+            getTimer={ this.getTimer }
+            handleClickFeedback={ this.handleClickFeedback }
+            answerIndex={ answerIndex }
+            alternativas={ shuflled }
+            correct={ results[answerIndex].correct_answer }
+            onClick={ this.getScoreBoard }
+            handleClkBtnNext={ this.handleClkBtnNext }
+          />
+        </div>
       </div>
     );
   }
