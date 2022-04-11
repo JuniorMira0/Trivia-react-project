@@ -10,4 +10,9 @@ export const addRanking = (user) => {
   localStorage.setItem(RANKING_TRIVIA, newList);
 };
 
+export const getRanking = () => {
+  const list = JSON.parse(localStorage.getItem(RANKING_TRIVIA));
+  return list;
+};
+
 export default addRanking;
