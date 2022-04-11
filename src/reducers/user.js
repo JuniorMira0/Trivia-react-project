@@ -19,6 +19,7 @@ const user = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       score: action.score,
+    };
   case SCORE_BOARD:
     return {
       ...state,
