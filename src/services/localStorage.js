@@ -1,9 +1,5 @@
 const RANKING_TRIVIA = 'RANKING_TRIVIA';
 
-if (!localStorage.getItem(RANKING_TRIVIA)) {
-  localStorage.setItem(RANKING_TRIVIA, JSON.stringify([]));
-}
-
 export const addRanking = (user) => {
   const list = JSON.parse(localStorage.getItem(RANKING_TRIVIA));
   const newList = [...list, user];
@@ -14,5 +10,3 @@ export const getRanking = () => {
   const list = JSON.parse(localStorage.getItem(RANKING_TRIVIA));
   return list;
 };
-
-export default addRanking;

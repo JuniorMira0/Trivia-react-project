@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import md5 from 'crypto-js/md5';
 import { resetScore } from '../actions';
 import Header from './Header';
-import { addRanking } from '../actions/localStorage';
+import { addRanking } from '../services/localStorage';
 
 //   **Observações técnicas**
 
