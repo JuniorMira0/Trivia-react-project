@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import md5 from 'crypto-js/md5';
 import { resetScore } from '../actions';
+import Header from './Header';
+import { addRanking } from '../actions/localStorage';
 
 //   **Observações técnicas**
 
@@ -56,7 +58,8 @@ class Feedback extends React.Component {
     const { score, assertions } = this.props;
     const MIN_ASSERT = 3;
     return (
-      <header>
+      <section>
+        <Header />
         <section>
           <p data-testid="feedback-text">
             { assertions < MIN_ASSERT ? 'Could be better...' : 'Well Done!'}
@@ -92,7 +95,7 @@ class Feedback extends React.Component {
             </button>
           </section>
         </section>
-      </header>
+      </section>
     );
   }
 }
