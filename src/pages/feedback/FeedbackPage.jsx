@@ -7,7 +7,7 @@ class FeedbackPage extends React.Component {
     return (
       <div>
         <Header />
-        <Feedback />
+        <Feedback { ...this.props } />
       </div>
     );
   }

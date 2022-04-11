@@ -4,8 +4,8 @@ import { Switch, Route } from 'react-router-dom';
 import Login from './pages/login/Login';
 import Settings from './pages/set/Settings';
 import Game from './pages/game/Game';
-import Ranking from './pages/Ranking/Ranking';
 import FeedbackPage from './pages/feedback/FeedbackPage';
+import Ranking from './components/Ranking';
 
 export default function App() {
   return (
