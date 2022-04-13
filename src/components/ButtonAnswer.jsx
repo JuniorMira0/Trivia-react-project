@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Timer from './Timer';
 import './ButtonAnswer.css';
-// asdasd
 
 class ButtonAnswer extends React.Component {
   constructor() {
