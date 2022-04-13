@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getRanking } from '../services/localStorage';
+import { resetAnswer, resetToken } from '../actions';
 
 class Ranking extends React.Component {
   constructor() {
@@ -15,11 +17,13 @@ class Ranking extends React.Component {
     this.setState({
       ranking,
     });
-    console.log(ranking);
+    // console.log(ranking);
   }
 
   handleClick = () => {
-    const { history } = this.props;
+    const { history, resetResults, resetTok } = this.props;
+    resetResults();
+    resetTok();
     history.push('/');
   }
 
@@ -50,10 +54,17 @@ class Ranking extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  resetResults: () => dispatch(resetAnswer()),
+  resetTok: () => dispatch(resetToken()),
+});
+
 Ranking.propTypes = {
+  resetTok: PropTypes.func.isRequired,
+  resetResults: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-export default Ranking;
+export default connect(null, mapDispatchToProps)(Ranking);
