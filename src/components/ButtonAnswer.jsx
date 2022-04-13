@@ -16,9 +16,9 @@ class ButtonAnswer extends React.Component {
   componentDidUpdate(prevProps, PrevState) {
     const { timer, target } = this.state;
     const { onClick } = this.props;
-    console.log(timer);
-    console.log(PrevState.timer);
-    if (PrevState.timer !== timer) onClick(target, timer);
+    if (PrevState.timer !== timer) {
+      onClick(target, timer);
+    }
   }
 
   getTimer = (timer) => {
@@ -71,6 +71,7 @@ class ButtonAnswer extends React.Component {
                 'correct-answer') : `wrong-answer-${index}` }
               type="button"
               key={ index }
+              id={ index }
               onClick={ this.handleClick }
               name={ alt }
             >

@@ -18,6 +18,7 @@ class Login extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { results, token, history, fetchAnswer } = this.props;
+    console.log(results);
     if (prevProps.token !== token) fetchAnswer(token);
     if (prevProps.results !== results) history.push('/game');
   }

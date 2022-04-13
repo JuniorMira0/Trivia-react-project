@@ -25,12 +25,10 @@ class Header extends React.Component {
               { name }
             </li>
           </ul>
-          <p
-            data-testid="header-score"
-          >
+          <p>
             Score:
             <br />
-            { score }
+            <span data-testid="header-score">{ score }</span>
           </p>
         </div>
       </header>
