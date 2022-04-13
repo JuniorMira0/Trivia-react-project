@@ -19,11 +19,13 @@ const user = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       score: action.score,
+      assertions: 0,
     };
   case SCORE_BOARD:
     return {
       ...state,
       score: state.score + action.score,
+      assertions: state.assertions + 1,
     };
   default:
     return state;

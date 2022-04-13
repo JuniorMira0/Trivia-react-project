@@ -20,12 +20,12 @@ class Timer extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { nextFalse, next } = this.props;
+    const { nextFalse, nextClicked } = this.props;
     if (prevState.timer === 1) {
       clearInterval(this.timeID);
       nextFalse();
     }
-    if (next) {
+    if (nextClicked) {
       const { timer } = this.state;
       const { getTimer } = this.props;
       getTimer(timer);
@@ -48,7 +48,7 @@ class Timer extends React.Component {
 }
 
 Timer.propTypes = {
-  next: PropTypes.bool.isRequired,
+  nextClicked: PropTypes.bool.isRequired,
   getTimer: PropTypes.func.isRequired,
   nextFalse: PropTypes.func.isRequired,
 };

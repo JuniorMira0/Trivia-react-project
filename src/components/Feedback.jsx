@@ -5,27 +5,6 @@ import md5 from 'crypto-js/md5';
 import { resetScore } from '../actions';
 import { addRanking } from '../services/localStorage';
 
-//   **Observações técnicas**
-
-//   * A mensagem deve ser "Could be better..." caso a pessoa acerte menos de 3 perguntas
-//   * A mensagem deve ser "Well Done!" caso a pessoa acerte 3 perguntas ou mais
-//   * O elemento da mensagem de _feedback_ deve possuir o atributo `data-testid` com o valor `feedback-text`
-
-//   **O que será avaliado**
-
-//   * Será validado se ao acertar menos de 3 perguntas a mensagem de _feedback_ é "Could be better..."
-//   * Será validado se ao acertar 3 perguntas a mensagem de _feedback_ é "Well Done!"
-//   * Será validado se ao acertar mais de 3 perguntas a mensagem de _feedback_ é "Well Done!"
-
-/*
-É necessário guardar o ranking no localStorage para que ele não se perca ao atualizar a página.
-
-A chave ranking deve conter a seguinte estrutura:
-[
-  { name: nome-da-pessoa, score: 10, picture: url-da-foto-no-gravatar }
-]
- */
-
 class Feedback extends React.Component {
   saveRanking = () => {
     const { name, score, gravatarEmail, dispatch } = this.props;

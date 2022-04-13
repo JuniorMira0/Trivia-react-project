@@ -5,6 +5,11 @@ import ButtonAnswer from './ButtonAnswer';
 import { handleScore } from '../actions';
 import './Options.css';
 
+const POINTS = 10;
+const HARD = 3;
+const MEDIUM = 2;
+const EASY = 1;
+
 class Options extends React.Component {
   constructor() {
     super();
@@ -40,21 +45,17 @@ class Options extends React.Component {
     const { answerIndex } = this.state;
     const { results, handleScoreBoard } = this.props;
     const { name } = target;
-    const points = 10;
-    const hard = 3;
-    const medium = 2;
-    const easy = 1;
     const correctAnswer = results[answerIndex].correct_answer;
     if (name === correctAnswer) {
       switch (results[answerIndex].difficulty) {
       case 'hard':
-        handleScoreBoard(points + (timer * hard));
+        handleScoreBoard(POINTS + (timer * HARD));
         break;
       case 'medium':
-        handleScoreBoard(points + (timer * medium));
+        handleScoreBoard(POINTS + (timer * MEDIUM));
         break;
       case 'easy':
-        handleScoreBoard(points + (timer * easy));
+        handleScoreBoard(POINTS + (timer * EASY));
         break;
       default:
         console.log('Error');

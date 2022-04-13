@@ -28,6 +28,7 @@ class Ranking extends React.Component {
     const screenRanking = ranking.sort((a, b) => (b.score - a.score));
     return (
       <div>
+        <h1 data-testid="ranking-title">RANKING</h1>
         <div>
           { screenRanking.map(({ picture, name, score }, index) => (
             <div key={ index }>
