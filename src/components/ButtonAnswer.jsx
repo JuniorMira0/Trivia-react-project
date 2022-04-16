@@ -7,22 +7,25 @@ class ButtonAnswer extends React.Component {
   constructor() {
     super();
     this.state = {
-      timer: 0,
+      // timer: 0,
       nextClicked: false,
       target: {},
     };
   }
 
-  componentDidUpdate(prevProps, PrevState) {
-    const { timer, target } = this.state;
-    const { onClick } = this.props;
-    if (PrevState.timer !== timer) {
-      onClick(target, timer);
-    }
-  }
+  // componentDidUpdate(prevProps, PrevState) {
+  //   const { timer, target } = this.state;
+  //   const { onClick } = this.props;
+  //   if (PrevState.timer !== timer) {
+  //     onClick(target, timer);
+  //   }
+  // }
 
   getTimer = (timer) => {
-    this.setState(() => ({ timer }));
+    const { target } = this.state;
+    const { onClick } = this.props;
+    // this.setState(() => ({ timer }));
+    onClick(target, timer);
   }
 
   nextToTrue = () => {
@@ -31,11 +34,18 @@ class ButtonAnswer extends React.Component {
     });
   }
 
+  // enviar = () => {
+  //   const { timer } = this.state;
+  //   console.log(timer);
+  // }
+
   handleClick = ({ target }) => {
-    this.setState({
+    // const { timer } = this.props;
+    this.setState(() => ({
       nextClicked: true,
       target,
-    });
+    }));
+    // this.enviar();
   }
 
   handleClickNext = () => {
