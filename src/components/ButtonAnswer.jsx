@@ -7,22 +7,15 @@ class ButtonAnswer extends React.Component {
   constructor() {
     super();
     this.state = {
-      timer: 0,
       nextClicked: false,
       target: {},
     };
   }
 
-  componentDidUpdate(prevProps, PrevState) {
-    const { timer, target } = this.state;
-    const { onClick } = this.props;
-    if (PrevState.timer !== timer) {
-      onClick(target, timer);
-    }
-  }
-
   getTimer = (timer) => {
-    this.setState(() => ({ timer }));
+    const { target } = this.state;
+    const { onClick } = this.props;
+    onClick(target, timer);
   }
 
   nextToTrue = () => {
@@ -32,10 +25,10 @@ class ButtonAnswer extends React.Component {
   }
 
   handleClick = ({ target }) => {
-    this.setState({
+    this.setState(() => ({
       nextClicked: true,
       target,
-    });
+    }));
   }
 
   handleClickNext = () => {
@@ -107,19 +100,3 @@ ButtonAnswer.propTypes = {
 }.isRequired;
 
 export default ButtonAnswer;
-
-// 9. Crie o placar com as seguintes características:
-
-//   **PRIORIDADE 3** - Ao clicar na resposta correta, pontos devem ser somados no placar da pessoa que está jogando
-
-//   **Observações técnicas**
-
-//   * Você deve salvar a pontuação **atual** no estado no redux na chave player.score
-//   * Leia a seção [Observações técnicas](#observações-técnicas) para mais detalhes
-//   * Respostas erradas não devem somar ao placar
-//   * A fórmula para cálculo dos pontos por pergunta é: `10 + (timer * dificuldade)`, onde timer é o tempo restante no contador de tempo e dificuldade é `hard: 3, medium: 2, easy: 1`, dependendo da pergunta. Exemplo: Se no momento da resposta correta o timer estiver contando 17 segundos, e a dificuldade da pergunta é 2 (média), a pontuação deve ser: `10 + (17 * 2) = 44`
-
-//    **O que será avaliado**
-
-//    * Será validado se os pontos são somados ao acertar uma questão
-//    * Será validado se os pontos não são somados ao errar uma questão

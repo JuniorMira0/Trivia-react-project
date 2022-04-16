@@ -71,7 +71,7 @@ class Options extends React.Component {
       ...results[answerIndex].incorrect_answers,
       results[answerIndex].correct_answer]);
     return (
-      <div data-testid="answer-options">
+      <div>
         <div className="container">
           <section className="py-5">
             <blockquote
@@ -92,7 +92,10 @@ class Options extends React.Component {
             </blockquote>
           </section>
         </div>
-        <div className="container py-5">
+        <div
+          data-testid="answer-options"
+          className="container py-5"
+        >
           <ButtonAnswer
             getTimer={ this.getTimer }
             handleClickFeedback={ this.handleClickFeedback }
